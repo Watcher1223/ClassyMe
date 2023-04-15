@@ -2,18 +2,19 @@
 let currentURL;
 
 // Runs on tab changes.
-chrome.tabs.onActivated.addListener(async function () {
-    // if (currentURL.slice(0,36) == "https://docs.google.com/presentation/") 
+chrome.tabs.onActivated.addListener(async function () { 
     console.log("TAB CHANGED");
     currentURL = await getTab();
-    console.log("Current URL: " + currentURL.slice(0,36));
+    console.log("Current URL: " + currentURL);
 })
 
 // Runs on tab updates.
 chrome.tabs.onUpdated.addListener(async function () {
+  if (currentURL.slice(0,36) == "https://docs.google.com/presentation") {
     console.log("TAB UPDATED");
     currentURL = await getTab();
     console.log("Current URL: " + currentURL);
+  }
 })
 
 async function getTab() {
@@ -22,3 +23,8 @@ async function getTab() {
   return tabs[0].url;
 }
 
+// if (currentURL.slice(0,36) == "https://docs.google.com/presentation") {
+
+// }
+
+// $('.btn').click()
