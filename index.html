@@ -5,16 +5,54 @@
         <body style="height: 600px; width: 500px;"></body>
         <link rel="stylesheet" type="text/css" href="styles.css" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <h1>Live Student Feedback</h1>
-        <button id="toggle-width" class="toggle-button"> Change Width</button>
+        <h1>Ask a question</h1>
+        <button id="toggle-width" class="toggle-button"> <h2>Change Width</h2></button>
+        <button id="teacher-identify" class="teacher-button"> <h2>Teacher?</h2></button>
+        <button id="student-identify" class="student-button"> <h2>Student</h2></button>
+        <div class="Code">
+            <div id="teacher-input-container" style="display:none;">
+              <input type="text" name="message" value="" placeholder="Enter Code here...">
+              <button>Create Class</button>
+            </div>
+      
+            <div id="student-input-container" style="display:none;">
+              <input type="text" name="message" value="" placeholder="Enter Code here...">
+              <button>Join Class</button>
+            </div>
+          </div>
+        <!-- <div id="student-input-container"></div> -->
         <style>
+            .toggle-button,
+            .teacher-button,
+            .student-button {
+                display: inline-block;
+                margin-right: 180px;
+                margin-left: 180px;
+            }
+    h2 {
+        color: rgb(40, 2, 40);
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 17px;
+        padding: 4px;
+    }
+            h2 { 
+                margin: 0;
+                color: #220116;
+                font-size: 16px;
+            }
+
             h1 { 
                 margin: 0;
-                color: #e9f0ff;
+                color: #fdfdfd;
+                font-size: 26px;
+            }
+            .toggle-button {
+                height: 30px;
+                transition: background-color 0.3s, height 0.3s;
             }
 
             .toggle-button:hover {
-                background-color: lightgrey;
+                background-color: rgb(155, 154, 154);
             }
 
             .scrollable-content {
@@ -45,7 +83,7 @@
             .glyphicon.glyphicon-thumbs-up.liked {
                 color: rgb(0, 85, 255);
             } 
-        </style>        
+        </style>       
         <div class="scrollable-content"> 
             <p id="thread" type="text"></p>
         </div>

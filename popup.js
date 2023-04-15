@@ -186,3 +186,41 @@ function toggleWidth() {
     wideWidth = true;
   }
 }
+
+// document.getElementById('teacher-identify').addEventListener('click', function () {
+//     const teacherInputContainer = document.getElementById('teacher-input-container');
+//     const existingInput = teacherInputContainer.querySelector('input');
+
+//     if (!existingInput) {
+//       const input = document.createElement('input');
+//       input.setAttribute('type', 'text');
+//       input.setAttribute('placeholder', 'Enter code');
+//       teacherInputContainer.appendChild(input);
+//     }
+//   });
+
+//   document.getElementById('student-identify').addEventListener('click', function () {
+//     const studentInputContainer = document.getElementById('student-input-container');
+//     const existingInput = studentInputContainer.querySelector('input');
+
+//     if (!existingInput) {
+//       const input = document.createElement('input');
+//       input.setAttribute('type', 'text');
+//       input.setAttribute('placeholder', 'Enter Class code');
+//       studentInputContainer.appendChild(input);
+//     }
+//   });
+
+document.getElementById('teacher-identify').addEventListener('click', function () {
+    const teacherInputContainer = document.getElementById('teacher-input-container');
+    const studentInputContainer = document.getElementById('student-input-container');
+    teacherInputContainer.style.display = 'block';
+    studentInputContainer.style.display = 'none';
+  });
+
+  document.getElementById('student-identify').addEventListener('click', function () {
+    const teacherInputContainer = document.getElementById('teacher-input-container');
+    const studentInputContainer = document.getElementById('student-input-container');
+    studentInputContainer.style.display = 'block';
+    teacherInputContainer.style.display = 'none';
+  });
