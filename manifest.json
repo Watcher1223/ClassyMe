@@ -11,16 +11,6 @@
   "permissions": [
     "tabs"
   ],
-  "content_scripts": [
-    {
-      "js": [
-        "scripts/accessing_tabs.ts"
-      ],
-      "matches": [
-        "https://docs.google.com/presentation/*"
-      ]
-    }
-  ],
   "background": {
     "service_worker": "scripts/background.js"
   },
