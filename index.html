@@ -1,49 +1,60 @@
 <!DOCTYPE html>
 <html>
-    <html style="height: 1200px;"></html>
+    <html style="height: 600px;"></html>
     <body>
-        <body style="height: 1200px; width: 450px;"></body>
+        <body style="height: 600px; width: 500px;"></body>
         <link rel="stylesheet" type="text/css" href="styles.css" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <h1>Live Student Feedback</h1>
-        <style>h1 {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background-color: white;
-            text-align: center;
-            padding: 10px;
-            margin: 0;
-            z-index: 100;
-        }
-        .input {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background-color: white;
-            padding: 5px;
-            display: flex;
-            z-index: 10;
-        }
-        </style>
-        <!-- only the scrollable contents on the screen moves down-->
+        <button id="toggle-width" class="toggle-button"> Change Width</button>
+        <style>
+            h1 { 
+                margin: 0;
+                color: #e9f0ff;
+            }
+
+            .toggle-button:hover {
+                background-color: lightgrey;
+            }
+
+            .scrollable-content {
+                overflow-y: auto;
+                height: 400px;
+                margin-bottom: 10px;
+            }
+
+            .input {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            #input {
+                width: 80%;
+                font-size: 16px;
+                padding: 8px;
+                border-radius: 4px;
+                border: 1px solid #ccc;
+                transition: border-color 0.3s;
+            }
+
+            #input:focus {
+                border-color: #2ecc71;
+            }
+
+            .glyphicon.glyphicon-thumbs-up.liked {
+                color: rgb(0, 85, 255);
+            } 
+        </style>        
         <div class="scrollable-content"> 
             <p id="thread" type="text"></p>
         </div>
-        <style>
-            .glyphicon.glyphicon-thumbs-up.liked {
-                color: rgb(0, 34, 255);
-            }
-        </style>        
         <div class="input">
-            <input id = "input" type = "text" name="message" value = "">
-            <button id="click-this">Click me.</button>
+            <input id = "input" type = "text" name="message" value = "" placeholder="Type your message here...">
+            <button id="click-this">Send</button>
         </div>
         <script src="popup.js"></script>
         </div>
         </div>
     </body>
 </html>
-<html>

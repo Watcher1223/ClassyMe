@@ -47,9 +47,31 @@ function press() {
     sortMessages();
 
     document.getElementById("input").value = '';
+
     let thread = document.getElementById("thread");
-    thread.innerHTML += "<br />" + inputValue + "<br />" + "<i data-like-count='0' id='" + inputValue + "' class='glyphicon glyphicon-thumbs-up'></i>";
+
+    let messageElement = document.createElement('div');
+    messageElement.className = 'sent-message';
+    messageElement.innerHTML = inputValue;
+    thread.appendChild(messageElement);
+
+    let likeIcon = document.createElement('i');
+    likeIcon.setAttribute('data-like-count', '0');
+    likeIcon.id = inputValue + '_like';
+    likeIcon.className = 'glyphicon glyphicon-thumbs-up';
+    messageElement.appendChild(likeIcon);
+
+    let replyIcon = document.createElement('i');
+    replyIcon.id = inputValue + '_reply';
+    replyIcon.className = 'glyphicon glyphicon-comment';
+    messageElement.appendChild(replyIcon);
+
+    let repliesDiv = document.createElement('div');
+    repliesDiv.className = 'replies';
+    repliesDiv.id = inputValue + '_replies';
+    messageElement.appendChild(repliesDiv);
 }
+
 
 function likeMessage(event) {
     let likeIcon = event.target;
@@ -65,12 +87,102 @@ function likeMessage(event) {
         likeCount -= 1;
     }
     likeIcon.setAttribute('data-like-count', likeCount);
-    likeIcon.textContent = ' ' + likeCount;
+    likeIcon.textContent = likeCount;
 }
 
-// Add event listener for clicking on a glyphicon-thumbs-up
+function replyMessage(event) {
+    let replyIcon = event.target;
+    let messageId = replyIcon.id.replace('_reply', '');
+    let replyInput = document.createElement('input');
+    replyInput.setAttribute('type', 'text');
+    replyInput.setAttribute('id', messageId + '_reply_input');
+    replyInput.setAttribute('placeholder', 'Write a reply...');
+
+    let sendReplyButton = document.createElement('button');
+    sendReplyButton.setAttribute('id', messageId + '_send_reply');
+    sendReplyButton.textContent = 'Send';
+
+    replyIcon.parentNode.insertBefore(replyInput, replyIcon.nextSibling);
+    replyIcon.parentNode.insertBefore(sendReplyButton, replyInput.nextSibling);
+
+    sendReplyButton.addEventListener('click', function () {
+        let replyText = document.getElementById(messageId + '_reply_input').value;
+        if (replyText.trim() === '') return;
+
+        let repliesDiv = document.getElementById(messageId + '_replies');
+        repliesDiv.innerHTML += "<br />" + replyText;
+
+        replyInput.remove();
+        sendReplyButton.remove();
+    });
+}
+// Add a message counter
+let messageCounter = 0;
+
+function press() {
+    let inputValue = document.getElementById("input").value;
+    if (inputValue == ""){
+        console.log("please enter a message")
+        return
+    }
+    let rand = Math.floor(Math.random() * 10);
+    let messageTuple = [inputValue, rand, messageCounter];
+    messages.push(messageTuple);
+    sortMessages();
+
+    document.getElementById("input").value = '';
+
+    let thread = document.getElementById("thread");
+
+    let messageElement = document.createElement('div');
+    messageElement.className = 'sent-message';
+    messageElement.innerHTML = inputValue;
+    thread.appendChild(messageElement);
+
+    let likeIcon = document.createElement('i');
+    likeIcon.setAttribute('data-like-count', '0');
+    likeIcon.id = messageCounter + '_like'; // Change this line
+    likeIcon.className = 'glyphicon glyphicon-thumbs-up';
+    messageElement.appendChild(likeIcon);
+
+    let replyIcon = document.createElement('i');
+    replyIcon.id = messageCounter + '_reply'; // Change this line
+    replyIcon.className = 'glyphicon glyphicon-comment';
+    messageElement.appendChild(replyIcon);
+
+    let repliesDiv = document.createElement('div');
+    repliesDiv.className = 'replies';
+    repliesDiv.id = messageCounter + '_replies'; // Change this line
+    messageElement.appendChild(repliesDiv);
+
+    // Increment the messageCounter
+    messageCounter++;
+}
+
+// ...
+// Add event listener for clicking on a glyphicon-comment
 document.addEventListener('click', function (event) {
     if (event.target.classList.contains('glyphicon-thumbs-up')) {
         likeMessage(event);
+    } else if (event.target.classList.contains('glyphicon-comment')) {
+        replyMessage(event);
     }
 });
+
+// Add event listener for changing the width
+document.getElementById("toggle-width").addEventListener("click", function () {
+    toggleWidth();
+  });
+
+let wideWidth = false;
+
+function toggleWidth() {
+  const bodyElement = document.querySelector("body");
+  if (wideWidth) {
+    bodyElement.style.width = "500px";
+    wideWidth = false;
+  } else {
+    bodyElement.style.width = "100%";
+    wideWidth = true;
+  }
+}
