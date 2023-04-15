@@ -164,6 +164,11 @@ function press() {
 document.addEventListener('click', function (event) {
     if (event.target.classList.contains('glyphicon-thumbs-up')) {
         likeMessage(event);
+        var extension_id = chrome.runtime.id
+        chrome.runtime.sendMessage(extension_id, {
+            message: "question was liked",
+            purpose: "some_identifier"
+        })
     } else if (event.target.classList.contains('glyphicon-comment')) {
         replyMessage(event);
     }
@@ -186,3 +191,5 @@ function toggleWidth() {
     wideWidth = true;
   }
 }
+
+
