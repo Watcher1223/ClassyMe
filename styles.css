@@ -1,0 +1,79 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+	font-family: system-ui, sans-serif;
+	font-size: 75%;
+	
+}
+
+h1 {
+    background-image: linear-gradient(to top, rgb(3, 44, 86), rgb(5, 6, 91), rgb(24, 0, 95));
+    text-align: center;
+    padding: 8px;
+    margin: 0;
+    z-index: 100;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.scrollable-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+    background-color: #f7f7f7;
+}
+
+.input {
+    background-color: white;
+    padding: 5px;
+    display: flex;
+    z-index: 10;
+}
+
+.input button:hover {
+    background-color: #0ada30;
+}
+.toggleWidth button:hover {
+    background-color: #0ada30;
+}
+
+.glyphicon.glyphicon-comment {
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.glyphicon.glyphicon-thumbs-up.liked {
+    color: rgb(0, 85, 255);
+}
+
+.sent-message {
+    background-color: #e9f0ff;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.reply {
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+}
+
+.toggle-width {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.toggle-width:hover {
+    background-color: rgba(255, 255, 255, 0.7);
+}
