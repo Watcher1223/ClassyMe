@@ -174,6 +174,50 @@ document.addEventListener('click', function (event) {
     }
 });
 
+document.getElementById("teacher-identify").addEventListener("click", function (event) {
+    var extension_id = chrome.runtime.id
+    chrome.runtime.sendMessage(extension_id, {
+        message: false,
+        purpose: "student_designation"
+    })
+})
+
+document.getElementById("go-live-button").addEventListener("click", function (event) {
+    var extension_id = chrome.runtime.id
+    chrome.runtime.sendMessage(extension_id, {
+        message: "go-live",
+        purpose: "go_live"
+    })
+})
+
+document.getElementById("student-identify").addEventListener("click", function (event) {
+    var extension_id = chrome.runtime.id
+    chrome.runtime.sendMessage(extension_id, {
+        message: true,
+        purpose: "student_designation"
+    })
+})
+
+document.getElementById("change-class-code-teacher").addEventListener("click", function (event) {
+    const class_code = document.getElementById("class-code-input").value;
+    console.log(class_code);
+    var extension_id = chrome.runtime.id
+    chrome.runtime.sendMessage(extension_id, {
+        message: class_code,
+        purpose: "class_code"
+    })
+})
+
+document.getElementById("change-class-code-student").addEventListener("click", function (event) {
+    const class_code = document.getElementById("class-code-input").value;
+    console.log(class_code);
+    var extension_id = chrome.runtime.id
+    chrome.runtime.sendMessage(extension_id, {
+        message: class_code,
+        purpose: "class_code"
+    })
+})
+
 // Add event listener for changing the width
 document.getElementById("toggle-width").addEventListener("click", function () {
     toggleWidth();
@@ -192,9 +236,6 @@ function toggleWidth() {
   }
 }
 
-<<<<<<< HEAD
-
-=======
 // document.getElementById('teacher-identify').addEventListener('click', function () {
 //     const teacherInputContainer = document.getElementById('teacher-input-container');
 //     const existingInput = teacherInputContainer.querySelector('input');
@@ -232,4 +273,3 @@ document.getElementById('teacher-identify').addEventListener('click', function (
     studentInputContainer.style.display = 'block';
     teacherInputContainer.style.display = 'none';
   });
->>>>>>> da97504878c9f869f25bc7c798593730e7d4729f

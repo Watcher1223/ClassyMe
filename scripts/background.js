@@ -2,7 +2,7 @@
 let currentURL;
 let classCode;
 
-const student = true
+var student = true
 
 // Runs on tab changes.
 chrome.tabs.onActivated.addListener(async function () { 
@@ -15,11 +15,11 @@ chrome.tabs.onActivated.addListener(async function () {
 
 // Runs on tab updates.
 chrome.tabs.onUpdated.addListener(async function () {
-  if (currentURL.slice(0,36) == "https://docs.google.com/presentation" && !student) {
+  if (currentURL.slice(0,36) == "https://docs.google.com/presentation" && !student &&classCode) {
     console.log("TAB UPDATED");
     currentURL = await getTab();
     console.log("Current URL: " + currentURL);
-    const http = new EasyHTTP;
+    const http = new HTTP;
     const data = {
       "code": classCode,
       "url": currentURL
@@ -34,7 +34,7 @@ async function getTab() {
   return tabs[0].url;
 }
 
-class EasyHTTP {
+class HTTP {
   async put(url, data) {
 
     const response = await fetch(url, {
@@ -57,6 +57,20 @@ class EasyHTTP {
 
     return resData
   }
+
+  async post(url, data) {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+
+    const resData = await response;
+
+    return resData
+  }
 }
 
 chrome.runtime.onMessage.addListener(async function(message, sender) {
@@ -64,13 +78,41 @@ chrome.runtime.onMessage.addListener(async function(message, sender) {
     student = message.message
 
   } else if (message.purpose == "go_live") {
-    const http = new EasyHTTP
-    let liveURL = await http.get(`https://live-student-feedback-backend.herokuapp.com/classes/${classCode}`)
-    goLive(liveURL)
+    const http = new HTTP
+    let liveURL = await http.get(`https://live-student-feedback-backend.herokuapp.com/classes/${classCode}`);
+    liveURL.json().then((json_result) => {
+      console.log(json_result.url);
+      goLive(json_result.url);
+    });
 
   } else if (message.purpose == "class_code") {
     classCode = message.message
-  }
+
+    if (!student) {
+      const http = new HTTP
+      if (currentURL == undefined) {
+        url = getTab();
+
+        url.then((url) => {
+          console.log(url);
+          if (url.slice(0,36) == "https://docs.google.com/presentation") {
+            currentURL = url
+          }        
+          
+        })
+      }
+      if (currentURL != undefined) {
+        let data = {
+          code: classCode,
+          url: currentURL
+        };
+        console.log(data);
+        let result = await http.post(`https://live-student-feedback-backend.herokuapp.com/classes`, data);
+        console.log(result);
+        
+      }
+    }
+  } 
 })
 
 async function goLive(liveURL) {
